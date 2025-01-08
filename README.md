@@ -88,14 +88,6 @@ az vm identity assign \
 
 This will automatically create a system-assigned identity and assign the Contributor role.
 
-You need these vars inside the VM
-```
-echo SUBSCRIPTION_ID=$SUBSCRIPTION_ID    # e.g. 12345678-abcd-efgh-ijkl-1234567890ab
-echo RESOURCE_GROUP=$RESOURCE_GROUP  # e.g. MyWorkshopRG
-echo LOCATION=$LOCATION                   # e.g. eastus
-echo VNET_NAME="NEWVNET"              # e.g. MyWorkshopVNet
-
-```
 ## 6. Connect to the VM
 
 Retrieve the public IP of the VM:
@@ -131,7 +123,6 @@ Once inside the VM, we can leverage the system-assigned managed identity to call
 2. Use curl with the Bearer token to call the ARM REST API.
 
 ### 7.1 Get the Access Token
-
 ```bash
 TOKEN=$(curl -H "Metadata: true" \
   "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2019-08-01&resource=https://management.azure.com" \
@@ -139,8 +130,18 @@ TOKEN=$(curl -H "Metadata: true" \
 
 echo $TOKEN
 ```
+### 7.2 Query the Instance Metadata Service for instance details
+```
+INSTANCE_JSON=$(curl -s -H "Metadata:true" "http://169.254.169.254/metadata/instance?api-version=2021-02-01")
+export VM_RESOURCE_GROUP=$(echo "$INSTANCE_JSON" | jq -r '.compute.resourceGroupName')
+export VM_SUBSCRIPTION_ID=$(echo "$INSTANCE_JSON" | jq -r '.compute.subscriptionId')
+export VM_LOCATION=$(echo "$INSTANCE_JSON" | jq -r '.compute.location')
 
-### 7.2 Create a VNet in the Resource Group using REST
+echo "Resource Group: $VM_RESOURCE_GROUP"
+echo "Subscription ID: $VM_SUBSCRIPTION_ID"
+echo "Location: $VM_LOCATION"
+```
+### 7.3 Create a VNet in the Resource Group using REST
 
 We’ll do a PUT call to create (or update) a Virtual Network in our resource group. Adjust the api-version to the latest if desired:
 
@@ -148,9 +149,9 @@ We’ll do a PUT call to create (or update) a Virtual Network in our resource gr
 curl -X PUT \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  "https://management.azure.com/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Network/virtualNetworks/vnetdemo?api-version=2023-02-01" \
+  "https://management.azure.com/subscriptions/$VM_SUBSCRIPTION_ID/resourceGroups/$VM_RESOURCE_GROUP/providers/Microsoft.Network/virtualNetworks/vnetdemo?api-version=2023-02-01" \
   -d '{
-        "location": "'"$LOCATION"'",
+        "location": "'"$VM_LOCATION"'",
         "properties": {
           "addressSpace": {
             "addressPrefixes": ["10.0.0.0/16"]
