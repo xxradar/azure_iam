@@ -186,7 +186,7 @@ This pattern lets you manage Azure resources securely and programmatically from 
 Happy exploring!
 
 ## Notes
-### 1. Show the Managed Identity on Your VM
+### 1. Show the Managed Identity of Your VM
 ```
 az vm identity show \
   --resource-group $RESOURCE_GROUP \
