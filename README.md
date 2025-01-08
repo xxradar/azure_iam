@@ -169,7 +169,7 @@ echo "Resource Group: $VM_RESOURCE_GROUP"
 echo "Subscription ID: $VM_SUBSCRIPTION_ID"
 echo "Location: $VM_LOCATION"
 ```
-### 7.3 Create a VNet in the Resource Group using REST
+### 7.3 Create a VNet in the Resource Group using REST as an example
 
 We’ll do a PUT call to create (or update) a Virtual Network in our resource group. Adjust the api-version to the latest if desired:
 
