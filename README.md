@@ -66,7 +66,7 @@ This command generates SSH keys if you don’t have them already.
 az vm create \
   --resource-group $RESOURCE_GROUP \
   --name $VM_NAME \
-  --image UbuntuLTS \
+  --image Ubuntu2204 \
   --admin-username azureuser \
   --generate-ssh-keys
 ```
@@ -125,8 +125,8 @@ Once inside the VM, we can leverage the system-assigned managed identity to call
 ### 7.1 Get the Access Token
 
 ```bash
-TOKEN=$(curl -H "Metadata:true" \
-  "http://169.254.169.254/metadata/identity/oauth2/token?resource=https://management.azure.com" \
+TOKEN=$(curl -H "Metadata: true" \
+  "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2019-08-01&resource=https://management.azure.com" \
   -s | jq -r '.access_token')
 
 echo $TOKEN
