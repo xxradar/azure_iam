@@ -146,10 +146,12 @@ echo "Location: $VM_LOCATION"
 We’ll do a PUT call to create (or update) a Virtual Network in our resource group. Adjust the api-version to the latest if desired:
 
 ```bash
+export VNET_NAME="vnet_demo"
+
 curl -X PUT \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  "https://management.azure.com/subscriptions/$VM_SUBSCRIPTION_ID/resourceGroups/$VM_RESOURCE_GROUP/providers/Microsoft.Network/virtualNetworks/vnetdemo?api-version=2023-02-01" \
+  "https://management.azure.com/subscriptions/$VM_SUBSCRIPTION_ID/resourceGroups/$VM_RESOURCE_GROUP/providers/Microsoft.Network/virtualNetworks/$VNET_NAME?api-version=2023-02-01" \
   -d '{
         "location": "'"$VM_LOCATION"'",
         "properties": {
