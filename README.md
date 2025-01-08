@@ -181,3 +181,25 @@ In this workshop, we:
 This pattern lets you manage Azure resources securely and programmatically from a VM without storing credentials in code.
 
 Happy exploring!
+
+## Notes
+### 1. Show the Managed Identity on Your VM
+```
+az vm identity show \
+  --resource-group $RESOURCE_GROUP \
+  --name $VM_NAME
+```
+### 2. Capture the VM's principal ID in a variable for convenience
+```
+export PRINCIPAL_ID=$(az vm identity show \
+  --resource-group $RESOURCE_GROUP \
+  --name $VM_NAME \
+  --query principalId -o tsv)
+```
+### 3. List role assignments for that principal ID
+```
+az role assignment list \
+  --assignee $PRINCIPAL_ID \
+  --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP" \
+  --output table
+```
