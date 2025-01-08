@@ -13,6 +13,15 @@ We will create a Linux VM in Azure using the Azure CLI, assign a system-assigned
 5. [Assign Managed Identity to the VM](#assign-managed-identity-to-the-vm)
 6. [Connect to the VM](#connect-to-the-vm)
 7. [Use Managed Identity to Create a VNet via REST API](#use-managed-identity-to-create-a-vnet-via-rest-api)
+   - [Get the Access Token](#7.1-get-the-access-token)
+   - [Query the Instance Metadata Service for instance details](#7.2-query-the-instance-metadata-service-for-instance-details)
+   - [Create a VNet in the Resource Group using REST](#7.3-create-a-vnet-in-the-resource-group-using-rest)
+8. [Clean Up Resources](#clean-up-resources)
+9. [Summary](#summary)
+10. [Notes](#notes)
+    - [Show the Managed Identity of Your VM](#1-show-the-managed-identity-of-your-vm)
+    - [Capture the VM's principal ID in a variable for convenience](#2-capture-the-vms-principal-id-in-a-variable-for-convenience)
+    - [List role assignments for that principal ID](#3-list-role-assignments-for-that-principal-id)
 
 ---
 
