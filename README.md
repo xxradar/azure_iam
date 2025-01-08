@@ -4,9 +4,9 @@ Welcome to this mini-workshop!
 
 We will create a Linux VM in Azure using the Azure CLI, assign a system-assigned managed identity that has full access to the Azure API on the resource group scope, and then demonstrate how to create and manage resources using the managed identity and the REST API.
 
-Managed identities in Azure come in two flavors: system-assigned and user-assigned. Both types provide your Azure resources (like VMs or App Services) with an automatically managed identity in Azure Active Directory (Azure AD).
+Managed identities in Azure come in two flavors: **system-assigned and user-assigned**. Both types provide your Azure resources (like VMs or App Services) with an automatically managed identity in Azure Active Directory (Azure AD).
 
-### System-Assigned Managed Identity
+#### System-Assigned Managed Identity
 
 - **Tied to a Single Resource**: The identity is enabled directly on an Azure resource (e.g., a VM).
 - **Lifecycle Coupled**: When you enable the system-assigned identity, Azure automatically creates an identity in Azure AD for that resource. If you delete the resource, the identity is automatically deleted as well.
@@ -14,7 +14,7 @@ Managed identities in Azure come in two flavors: system-assigned and user-assign
 
 **Use Case**: Great for simple scenarios where you only need credentials for a single resource, and you want that identity lifecycle to match the resource.
 
-### User-Assigned Managed Identity
+#### User-Assigned Managed Identity
 
 - **Standalone Resource**: You create this identity as a separate Azure resource in a resource group or subscription.
 - **Lifecycle Independent**: Once created, it exists independently of any particular resource. Deleting a VM or an App Service using this identity will not delete the identity itself.
