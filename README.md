@@ -1,24 +1,26 @@
 # Azure Linux VM Workshop with Managed Identity and REST API Calls
 
-Welcome to this mini-workshop!  
-We will create a Linux VM in Azure using the Azure CLI, assign a system-assigned managed identity that has full access to the Azure API on the resource group scope, and then demonstrate how to create a Virtual Network (VNet) using a raw REST API call with `curl` from within that VM.
+Welcome to this mini-workshop!
 
-Managed identities in Azure come in two flavors: system-assigned and user-assigned. Both types provide your Azure resources (like VMs or App Services) with an automatically managed identity in Azure AD, eliminating the need for credentials in your code. However, they differ in lifecycle and reusability:
-System-Assigned Managed Identity
+We will create a Linux VM in Azure using the Azure CLI, assign a system-assigned managed identity that has full access to the Azure API on the resource group scope, and then demonstrate how to create and manage resources using the managed identity and the REST API.
 
-    Tied to a Single Resource: The identity is enabled directly on an Azure resource (e.g., a VM).
-    Lifecycle Coupled: When you enable the system-assigned identity, Azure automatically creates an identity in Azure AD for that resource. If you delete the resource, the identity is automatically deleted.
-    One-to-One Relationship: Each resource that uses a system-assigned identity gets its own identity. You can’t share it with other resources.
+Managed identities in Azure come in two flavors: system-assigned and user-assigned. Both types provide your Azure resources (like VMs or App Services) with an automatically managed identity in Azure Active Directory (Azure AD).
 
-Use Case: Great for simple scenarios where you only need credentials for a single resource, and you want that identity lifecycle to match the resource.
-User-Assigned Managed Identity
+### System-Assigned Managed Identity
 
-    Standalone Resource: You create this identity as a separate Azure resource in a resource group or subscription.
-    Lifecycle Independent: Once created, it exists independently of any particular resource. Deleting a VM or an App Service using this identity will not delete the identity itself.
-    Reusability: You can attach the same user-assigned identity to multiple Azure resources. That means they all share the same Azure AD identity (same principal).
+- **Tied to a Single Resource**: The identity is enabled directly on an Azure resource (e.g., a VM).
+- **Lifecycle Coupled**: When you enable the system-assigned identity, Azure automatically creates an identity in Azure AD for that resource. If you delete the resource, the identity is automatically deleted as well.
+- **One-to-One Relationship**: Each resource that uses a system-assigned identity gets its own identity. You can’t share it with other resources.
 
-Use Case: Useful when you want a single identity for multiple resources or when you need an identity to persist even if the resources are rebuilt. It’s also helpful for consistent access control or scenarios where you want to track usage by one specific identity across different services.
+**Use Case**: Great for simple scenarios where you only need credentials for a single resource, and you want that identity lifecycle to match the resource.
 
+### User-Assigned Managed Identity
+
+- **Standalone Resource**: You create this identity as a separate Azure resource in a resource group or subscription.
+- **Lifecycle Independent**: Once created, it exists independently of any particular resource. Deleting a VM or an App Service using this identity will not delete the identity itself.
+- **Reusability**: You can attach the same user-assigned identity to multiple Azure resources. That means they all share the same Azure AD identity (same principal).
+
+**Use Case**: Useful when you want a single identity for multiple resources or when you need an identity to persist even if the resources are rebuilt. It’s also helpful for consistent access control or auditing across multiple resources.
 
 ---
 
