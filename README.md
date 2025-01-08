@@ -88,6 +88,14 @@ az vm identity assign \
 
 This will automatically create a system-assigned identity and assign the Contributor role.
 
+You need these vars inside the VM
+```
+echo SUBSCRIPTION_ID=$SUBSCRIPTION_ID    # e.g. 12345678-abcd-efgh-ijkl-1234567890ab
+echo RESOURCE_GROUP=$RESOURCE_GROUP  # e.g. MyWorkshopRG
+echo LOCATION=$LOCATION                   # e.g. eastus
+echo VNET_NAME="NEWVNET"              # e.g. MyWorkshopVNet
+
+```
 ## 6. Connect to the VM
 
 Retrieve the public IP of the VM:
@@ -140,7 +148,7 @@ We’ll do a PUT call to create (or update) a Virtual Network in our resource gr
 curl -X PUT \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  "https://management.azure.com/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Network/virtualNetworks/$VNET_NAME?api-version=2023-02-01" \
+  "https://management.azure.com/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Network/virtualNetworks/vnetdemo?api-version=2023-02-01" \
   -d '{
         "location": "'"$LOCATION"'",
         "properties": {
